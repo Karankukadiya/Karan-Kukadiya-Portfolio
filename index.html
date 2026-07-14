@@ -1006,5 +1006,49 @@
         window.addEventListener('scroll', setActiveLink);
         window.addEventListener('load', setActiveLink);
     </script>
+
+    <script>
+        const certificatesLibrary = [
+            { id: 1, name: "Data Analytics Essentials", issuer: "Cisco Networking Academy", date: "Jul 2026", image: "certificates/DataAnalyticsEssentialsUpdate20260714-20-dqw6fy.pdf" }
+            // Add more certificates here — just copy the pattern above
+        ];
+
+        function renderCertificateCard(c) {
+            return `<div class="project-card cert-card">
+                <img src="${c.image}" alt="${escapeHtml(c.name)}" class="cert-thumb" onclick="openCertModal(${c.id})" onerror="this.src='https://via.placeholder.com/320x160?text=Certificate'">
+                <div class="cert-issuer"><i class="fas fa-building"></i> ${escapeHtml(c.issuer)}</div>
+                <h3>${escapeHtml(c.name)}</h3>
+                <div class="cert-date"><i class="fas fa-calendar"></i> ${escapeHtml(c.date)}</div>
+                <div class="project-links">
+                    <a href="${c.image}" target="_blank"><i class="fas fa-expand"></i> View Full Size</a>
+                </div>
+            </div>`;
+        }
+
+        function renderCertificates() {
+            const grid = document.getElementById('certificatesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            certificatesLibrary.forEach(c => { grid.innerHTML += renderCertificateCard(c); });
+        }
+
+        function openCertModal(id) {
+            const cert = certificatesLibrary.find(c => c.id === id);
+            if (!cert) return;
+            document.getElementById('certModalTitle').textContent = cert.name;
+            document.getElementById('certModalImage').src = cert.image;
+            document.getElementById('certModalDownload').href = cert.image;
+            document.getElementById('certModal').style.display = 'block';
+        }
+
+        document.getElementById('closeCertModal')?.addEventListener('click', () => {
+            document.getElementById('certModal').style.display = 'none';
+        });
+        window.addEventListener('click', (e) => {
+            if (e.target.id === 'certModal') e.target.style.display = 'none';
+        });
+
+        renderCertificates();
+    </script>
 </body>
 </html>
