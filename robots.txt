@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://karankukadiya.github.io/Karan-Kukadiya-Portfolio/sitemap.xml
